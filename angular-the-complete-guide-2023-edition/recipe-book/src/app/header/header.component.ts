@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
     this.dataStorageService.storeRecipes();
   }
   onFetchData(){
-    this.dataStorageService.fetchRecipes();
+    this.dataStorageService.fetchRecipes().subscribe();//need to be added subscribe because we remove it from service
   }
   // onSelect(feature:string){
   //   this.featureSelected.emit(feature);
