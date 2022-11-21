@@ -37,16 +37,22 @@ export class RecipeService {
       ]
     )
   ];
+
+  setRecipes(recipes: Recipe[]){
+    this.recipes = recipes;
+    this.recipeSelected.next(this.recipes.slice());
+  }
+
   getRecipes(){
       return this.recipes;
     }
   // getRecipes(){
   //   return this.recipes.slice();
   // }
-getRecipe(index: number){
-  const recipe = this.recipes[index];
-  return recipe;
-}
+  getRecipe(index: number){
+    const recipe = this.recipes[index];
+    return recipe;
+  }
   
   addIngredientsToShoppingList(ingredient: Ingredient[]){
     this.shoppingListService.addAllIngredients(ingredient);
