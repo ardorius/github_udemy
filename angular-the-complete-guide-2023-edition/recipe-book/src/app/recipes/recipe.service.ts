@@ -17,26 +17,28 @@ export class RecipeService {
 
   constructor(private shoppingListService: ShoppingListService) { }
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'GREEN BEANS WITH BACON AND NEW POTATOES', 
-      'Cook the bacon pieces in a large sauce pan over medium heat for 5 minutes.  orange quote icon Wash hands with soap and water after handling bacon.', 
-      'https://fruitsandveggies.org/wp-content/uploads/2019/02/2017-StoryDinner-SouthernBeansPotatoes-Final-558x439.jpg',
-      [
-        new Ingredient('Beans',100),
-        new Ingredient('Potatos',20)
-      ]
-    ),
-    new Recipe(
-      'EASY CHICKEN AND VEGETABLE STIR-FRY', 
-      'Add onion, carrots, 3/4 cup of the broth, the soy sauce and sugar. Cover and cook over medium heat 5 minutes, stirring twice.', 
-      'https://www.eatwell101.com/wp-content/uploads/2021/01/Chicken-Stir-Fry-Recipe.jpg',
-      [
-        new Ingredient('Chicken',2),
-        new Ingredient('Onions', 3)
-      ]
-    )
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'GREEN BEANS WITH BACON AND NEW POTATOES', 
+  //     'Cook the bacon pieces in a large sauce pan over medium heat for 5 minutes.  orange quote icon Wash hands with soap and water after handling bacon.', 
+  //     'https://fruitsandveggies.org/wp-content/uploads/2019/02/2017-StoryDinner-SouthernBeansPotatoes-Final-558x439.jpg',
+  //     [
+  //       new Ingredient('Beans',100),
+  //       new Ingredient('Potatos',20)
+  //     ]
+  //   ),
+  //   new Recipe(
+  //     'EASY CHICKEN AND VEGETABLE STIR-FRY', 
+  //     'Add onion, carrots, 3/4 cup of the broth, the soy sauce and sugar. Cover and cook over medium heat 5 minutes, stirring twice.', 
+  //     'https://www.eatwell101.com/wp-content/uploads/2021/01/Chicken-Stir-Fry-Recipe.jpg',
+  //     [
+  //       new Ingredient('Chicken',2),
+  //       new Ingredient('Onions', 3)
+  //     ]
+  //   )
+  // ];
+
+  private recipes: Recipe[] = [];
 
   setRecipes(recipes: Recipe[]){
     this.recipes = recipes;
