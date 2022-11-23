@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AppComponent } from "./app.component";
+import { AuthComponent } from "./auth/auth.component";
 import { ErrorPageComponent } from "./error-page/error-page.component";
 import { NoRecipeComponent } from "./recipes/no-recipe/no-recipe.component";
 import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
@@ -32,6 +33,10 @@ const appRoutes: Routes = [
     {
         path: 'not-found', component: ErrorPageComponent,
         data: {message: 'Page not found!'}
+    },
+    {
+        path: 'auth',
+        component: AuthComponent
     },
     {
         path: '**', redirectTo: 'not-found'

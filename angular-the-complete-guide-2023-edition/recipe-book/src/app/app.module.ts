@@ -18,6 +18,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { NoRecipeComponent } from './recipes/no-recipe/no-recipe.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeService } from './recipes/recipe.service';
+import { AuthComponent } from './auth/auth.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { RecipeService } from './recipes/recipe.service';
     DropdownDirective,
     ErrorPageComponent,
     NoRecipeComponent,
-    RecipeEditComponent    
+    RecipeEditComponent,
+    AuthComponent    
   ],
   imports: [
     BrowserModule,
