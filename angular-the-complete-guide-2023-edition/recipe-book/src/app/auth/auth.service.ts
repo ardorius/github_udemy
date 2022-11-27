@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Subject, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Subject, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 
 export interface AuthResponseData {
@@ -16,7 +16,8 @@ export interface AuthResponseData {
   providedIn: 'root'
 })
 export class AuthService {
-  user = new Subject<User>();
+  //user = new Subject<User>();//replace subject for behaviorsubject
+  user = new BehaviorSubject<User>(null);//get previous value, for use fetch data 
 
   constructor(private http : HttpClient) { }
 
@@ -64,7 +65,7 @@ export class AuthService {
     token: string, 
     expiresIn: number
     ){
-      const expirationDate = new Date(new Date().getDate() + expiresIn * 1000);
+      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);//need to be gettime otherwise expire time is not valid
       const user = new User(email, userId, token, expirationDate);
       this.user.next(user);
   }
