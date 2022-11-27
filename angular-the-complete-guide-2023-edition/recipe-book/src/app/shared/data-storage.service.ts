@@ -27,27 +27,21 @@ export class DataStorageService {
 
     fetchRecipes(){
       // console.table(this.authService.user);
-      return this.authService.user //user is now behaviorsubject
-        .pipe(
-          take(1), //take just first object, first / latest user and unsubscribe automaticaly
-          exhaustMap(user => { //use for work with two observables
-            return this.http.get<Recipe[]>(
-              'https://ng-course-recipe-book-92fb1-default-rtdb.europe-west1.firebasedatabase.app/recipes.json', //or '?auth=' + user.token
-              {
-                params: new HttpParams().set('auth', user.token)
-              }
-            );
-          }),
-          map(recipes => { //move operators from second observable to group of observables
-            return recipes.map(recipe => {//prevent before error of empty object
-                return {
-                  ...recipe, 
-                  ingredients: recipe.ingredients ? recipe.ingredients : []};
-            });
-          }),
-          tap(recipes => { //move operators from second observable to group of observables
-            this.recipeService.setRecipes(recipes);
-          })
-          )
-        }
+     
+      return this.http.get<Recipe[]>(
+        'https://ng-course-recipe-book-92fb1-default-rtdb.europe-west1.firebasedatabase.app/recipes.json', //or '?auth=' + user.token
+      )//add auth in interceptor
+      .pipe(     
+        map(recipes => { //move operators from second observable to group of observables
+        return recipes.map(recipe => {//prevent before error of empty object
+            return {
+            ...recipe, 
+            ingredients: recipe.ingredients ? recipe.ingredients : []};
+          });
+        }),
+        tap(recipes => { //move operators from second observable to group of observables
+          this.recipeService.setRecipes(recipes);
+        })
+      )
+    }
 }
