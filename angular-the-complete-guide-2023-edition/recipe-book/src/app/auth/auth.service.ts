@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Subject, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 
@@ -19,7 +20,9 @@ export class AuthService {
   //user = new Subject<User>();//replace subject for behaviorsubject
   user = new BehaviorSubject<User>(null);//get previous value, for use fetch data 
 
-  constructor(private http : HttpClient) { }
+  constructor(
+    private http : HttpClient,
+    private router: Router) { }
 
   singUp(email: string, password: string){
     return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAbuofw54uBPRUsc-L2FukNyHWp_G3VX4c',
@@ -57,6 +60,11 @@ export class AuthService {
           responseData.idToken, 
           +responseData.expiresIn)
       }))
+  }
+
+  logout(){
+    this.user.next(null);
+    this.router.navigate(['/auth']);
   }
 
   private handleAuthentication(

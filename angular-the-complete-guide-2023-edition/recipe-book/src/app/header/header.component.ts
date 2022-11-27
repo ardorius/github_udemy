@@ -44,6 +44,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onFetchData(){
     this.dataStorageService.fetchRecipes().subscribe();//need to be added subscribe because we remove it from service
   }
+
+  onLogout(){
+    this.authService.logout();
+  }
   // onSelect(feature:string){
   //   this.featureSelected.emit(feature);
   // }
