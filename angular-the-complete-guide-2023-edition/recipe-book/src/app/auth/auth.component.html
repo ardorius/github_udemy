@@ -1,3 +1,4 @@
+<ng-template appPlaceholder></ng-template>
 <div class="row">
     <div *ngIf="isLoading" style="text-align: center;">
         <app-loading-spinner></app-loading-spinner>
@@ -7,7 +8,7 @@
             <p>{{error}}</p>
         </div> -->
         <!-- <app-alert [message]="error" *ngIf="error" (close)="OnHandleError()"></app-alert> -->
-        <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input 
