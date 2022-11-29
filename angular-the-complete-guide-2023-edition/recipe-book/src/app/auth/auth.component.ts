@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +16,12 @@ export class AuthComponent implements OnInit {
   isLoading : boolean = false;
   error : string = null;
 
-  constructor(private authService : AuthService, private router: Router) { }
+  constructor(
+    private authService : AuthService, 
+    private router: Router,
+    private viewContainerRef: ViewContainerRef
+    // private componentFactoryResolver: ComponentFactoryResolver//deprecated
+    ) { }
 
   ngOnInit(): void {
   }
@@ -53,6 +59,7 @@ export class AuthComponent implements OnInit {
           console.log(errorMessage);         
          
           this.error = errorMessage;
+          this.showErrorAlert(errorMessage);
           this.isLoading = false;
         });
      
@@ -64,5 +71,14 @@ export class AuthComponent implements OnInit {
 
   OnHandleError(){
     this.error = null;
+    
+  }
+
+  private showErrorAlert(message: string){
+    // const alertComp = new AlertComponent(); will not work, not work at action with DOM
+    // const alertCmpFactory =  this.componentFactoryResolver.resolveComponentFactory(//deprecated v13
+    //   AlertComponent
+    // );
+    const alertCmpFactory = this.viewContainerRef.createComponent(AlertComponent);
   }
 }
