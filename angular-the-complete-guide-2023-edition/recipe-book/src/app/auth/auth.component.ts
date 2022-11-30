@@ -93,6 +93,7 @@ export class AuthComponent implements OnInit {
 
     this.closeAlertSub = componentRef.instance.close.subscribe(() => {
       this.closeAlertSub.unsubscribe();
+      componentRef.destroy();
       hostViewContainerRef.clear();
     });
     // hostViewContainer.createComponent(alertCmpFactory);
