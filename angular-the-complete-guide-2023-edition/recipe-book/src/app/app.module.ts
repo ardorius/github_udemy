@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+// import { LoggingService } from './logging.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     AppRoutingModule,
   ],
+  // providers: [LoggingService],
   bootstrap: [AppComponent]
   //, entryComponents:[
   //   AlertComponent
