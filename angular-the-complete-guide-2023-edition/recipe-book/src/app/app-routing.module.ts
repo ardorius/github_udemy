@@ -9,6 +9,11 @@ const appRoutes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'recipes',
+        // loadChildren: './recipes/recipes.module#RecipesModule'//old style
+        loadChildren: () => import ('./recipes/recipes.module').then((mod) => mod.RecipesModule)
+    },
+    {
         path: 'not-found', component: ErrorPageComponent,
         data: {message: 'Page not found!'}
     },
