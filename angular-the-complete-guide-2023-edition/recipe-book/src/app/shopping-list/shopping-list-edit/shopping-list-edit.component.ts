@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/shared/ingridient-model';
-import { ShoppingListService } from '../shopping-list.service';
+// import { ShoppingListService } from '../shopping-list.service';
 
 import * as ShoppingListActions from '../store/shopping-list.actions';
 import * as fromShoppingList from '../store/shopping-list.reducer';
@@ -27,7 +27,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   // @Output() ingredientAdded = new EventEmitter<Ingredient>();
 
   constructor(
-    private shoppingListService: ShoppingListService,
+    //private shoppingListService: ShoppingListService,
     private store: Store<fromShoppingList.AppState>
     ) { }
 

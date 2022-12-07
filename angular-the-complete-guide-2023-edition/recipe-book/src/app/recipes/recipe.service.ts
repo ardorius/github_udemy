@@ -2,7 +2,7 @@ import { Directive, EventEmitter, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingridient-model';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
+// import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
 
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
@@ -20,7 +20,7 @@ export class RecipeService {
   recipeSelected = new Subject<Recipe[]>();
 
   constructor(
-    private shoppingListService: ShoppingListService,
+    // private shoppingListService: ShoppingListService,
     private store: Store<fromShoppingList.AppState>
     ) { }
 
