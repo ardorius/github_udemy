@@ -1,18 +1,27 @@
 import { HttpHandler, HttpInterceptor, HttpParams, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { exhaustMap, take } from "rxjs";
+import { Store } from "@ngrx/store";
+import { exhaustMap, map, take } from "rxjs";
 import { AuthService } from "./auth.service";
+
+import * as fromApp from '../store/app.reducer';
 
 @Injectable()
 
 export class AuthInterceptorService implements HttpInterceptor{
-    constructor(private authService: AuthService){}
+    constructor(
+        private authService: AuthService,
+        private store: Store<fromApp.AppState>){}
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         // console.table(this.authService.user);
-       return this.authService.user //user is now behaviorsubject
-        .pipe(
+       //return this.authService.user //user is now behaviorsubject
+       return this.store.select('auth')
+       .pipe(
             take(1), //take just first object, first / latest user and unsubscribe automaticaly
+            map(authState => {
+                return authState.user;
+            }),
             exhaustMap(user => { //use for work with two observables
                 // console.table(this.authService.user);
                 if(!user){
