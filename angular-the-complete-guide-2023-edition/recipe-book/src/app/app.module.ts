@@ -10,8 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+// import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+// import { authReducer } from './auth/store/auth.reducer';
 // import { LoggingService } from './logging.service';
+
+import * as fromApp from './store/app.reducer'
 
 
 @NgModule({
@@ -26,7 +29,7 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     SharedModule,
     CoreModule,
     AppRoutingModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer})
+    StoreModule.forRoot(fromApp.appRedurer)
   ],
   // providers: [LoggingService],
   bootstrap: [AppComponent]
