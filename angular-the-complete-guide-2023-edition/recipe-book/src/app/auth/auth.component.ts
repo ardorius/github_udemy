@@ -5,6 +5,10 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +27,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private authService : AuthService, 
     private router: Router,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    private store: Store<fromApp.AppState>
     // private componentFactoryResolver: ComponentFactoryResolver//deprecated
     ) { }
 
@@ -47,10 +52,13 @@ export class AuthComponent implements OnInit {
 
       if (this.isLoginMode){
         //..
-        authObs = this.authService.login(email, password);
+        // authObs = this.authService.login(email, password);
+        this.store.dispatch(
+          new AuthActions.LoginStart({email: email, password: password})
+        );
       }
       else{
-        authObs = this.authService.singUp(email, password);
+        // authObs = this.authService.singUp(email, password);
       }
 
       authObs.subscribe(//share and reduce code
