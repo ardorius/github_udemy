@@ -34,13 +34,16 @@ export class AuthService {
     private store: Store<fromApp.AppState>) { }
 
   singUp(email: string, password: string){
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
+    return this.http.post<AuthResponseData>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + 
+      environment.firebaseAPIKey,
       {
         email: email,
         password: password,
         returnSecureToken: true
       }
-    ).pipe(
+    )
+    .pipe(
       catchError(this.handlerError), 
       tap(responseData => {
         this.handleAuthentication(
@@ -53,12 +56,14 @@ export class AuthService {
   }
 
   login(email: string, password: string){
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey,
-    {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }
+    return this.http.post<AuthResponseData>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + 
+      environment.firebaseAPIKey,
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }
     )
     .pipe(
       catchError(this.handlerError),
