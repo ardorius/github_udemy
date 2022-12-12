@@ -53,8 +53,6 @@ export class AuthComponent implements OnInit {
       const email = form.value.email;
       const password = form.value.password;
       
-      let authObs: Observable<AuthResponseData>;
-
       this.isLoading = true;
 
       if (this.isLoginMode){
@@ -65,23 +63,11 @@ export class AuthComponent implements OnInit {
         );
       }
       else{
+        this.store.dispatch(
+          new AuthActions.SignupStart({email: email, password: password})
+        )
         // authObs = this.authService.singUp(email, password);
       }
-
-      // authObs.subscribe(//share and reduce code
-      //   responseData => {
-      //     console.log(responseData);
-      //     this.isLoading = false;
-      //     this.router.navigate(['/recipes']);
-      //   },
-      //   errorMessage => {
-      //     console.log(errorMessage);         
-         
-      //     this.error = errorMessage;
-      //     this.showErrorAlert(errorMessage);
-      //     this.isLoading = false;
-      //   });
-     
 
     }
     else return;
@@ -90,7 +76,6 @@ export class AuthComponent implements OnInit {
 
   OnHandleError(){
     this.error = null;
-    
   }
 
   private showErrorAlert(message: string){
