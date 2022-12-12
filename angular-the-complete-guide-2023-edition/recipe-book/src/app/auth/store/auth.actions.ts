@@ -34,4 +34,6 @@ export class LoginFail implements Action{
 
 export type AuthActions = 
     | Login
-    | Logout; 
+    | Logout
+    | LoginStart
+    | LoginFail; 

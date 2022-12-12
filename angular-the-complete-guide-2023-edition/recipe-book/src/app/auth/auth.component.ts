@@ -32,7 +32,14 @@ export class AuthComponent implements OnInit {
     // private componentFactoryResolver: ComponentFactoryResolver//deprecated
     ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.store.select('auth').subscribe(authState => {
+      this.isLoading = authState.loading;
+      this.error = authState.authError;
+      if (this.error){
+        this.showErrorAlert(this.error);
+      }
+    })
   }
 
   onSwitchMode() {
@@ -61,19 +68,19 @@ export class AuthComponent implements OnInit {
         // authObs = this.authService.singUp(email, password);
       }
 
-      authObs.subscribe(//share and reduce code
-        responseData => {
-          console.log(responseData);
-          this.isLoading = false;
-          this.router.navigate(['/recipes']);
-        },
-        errorMessage => {
-          console.log(errorMessage);         
+      // authObs.subscribe(//share and reduce code
+      //   responseData => {
+      //     console.log(responseData);
+      //     this.isLoading = false;
+      //     this.router.navigate(['/recipes']);
+      //   },
+      //   errorMessage => {
+      //     console.log(errorMessage);         
          
-          this.error = errorMessage;
-          this.showErrorAlert(errorMessage);
-          this.isLoading = false;
-        });
+      //     this.error = errorMessage;
+      //     this.showErrorAlert(errorMessage);
+      //     this.isLoading = false;
+      //   });
      
 
     }
