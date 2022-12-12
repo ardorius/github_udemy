@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import * as AuthActions from './store/auth.actions';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
 
   isLoginMode : boolean = true;
   isLoading : boolean = false;
@@ -23,6 +23,7 @@ export class AuthComponent implements OnInit {
   @ViewChild(PlaceholderDirective, {static: false}) alertHost : PlaceholderDirective;
 
   private closeAlertSub : Subscription;
+  private storeSub: Subscription;
 
   constructor(
     private authService : AuthService, 
@@ -33,13 +34,22 @@ export class AuthComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.store.select('auth').subscribe(authState => {
+   this.storeSub = this.store.select('auth').subscribe(authState => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
       if (this.error){
         this.showErrorAlert(this.error);
       }
     })
+  }
+
+  ngOnDestroy() {
+    if (this.closeAlertSub){
+      this.closeAlertSub.unsubscribe();
+    }
+    if (this.storeSub){
+      this.storeSub.unsubscribe();
+    }
   }
 
   onSwitchMode() {
@@ -75,7 +85,8 @@ export class AuthComponent implements OnInit {
   }
 
   OnHandleError(){
-    this.error = null;
+    // this.error = null;
+    this.store.dispatch(new AuthActions.ClearError())
   }
 
   private showErrorAlert(message: string){
