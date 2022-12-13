@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { catchError, map, of, switchMap, tap } from "rxjs";
 import { environment } from "src/environments/environment";
+import { AuthService } from "../auth.service";
 import { User } from "../user.model";
 
 import * as AuthActions from './auth.actions';
@@ -88,6 +89,9 @@ export class AuthEffects {
                 }
               )
               .pipe(
+                tap(resData => {
+                  this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+                }),
                 map(resData => {
                   return  handleAuthentication(
                         +resData.expiresIn,
@@ -115,6 +119,9 @@ export class AuthEffects {
                     returnSecureToken: true
                 }
             ).pipe(
+              tap(resData => {
+                this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+              }),
               map(resData => {
                 return  handleAuthentication(
                     +resData.expiresIn,
@@ -132,7 +139,7 @@ export class AuthEffects {
     
     authRedirect = createEffect(
         () => this.actions$.pipe(
-        ofType(AuthActions.AUTHENTICATE_SUCCESS, AuthActions.LOGOUT), 
+        ofType(AuthActions.AUTHENTICATE_SUCCESS), 
         tap(()=>{
             this.router.navigate(['/']);
         })
@@ -159,6 +166,10 @@ export class AuthEffects {
           
           if(loadedUser.token){
             // this.user.next(loadedUser);
+            const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();//check rest time
+      
+            this.authService.setLogoutTimer(expirationDuration);
+            
             return  new AuthActions.AuthenticateSuccess({
                 email: loadedUser.email, 
                 userId: loadedUser.id, 
@@ -180,6 +191,8 @@ export class AuthEffects {
     () => this.actions$.pipe(
       ofType(AuthActions.LOGOUT),
       tap(() => {
+        this.authService.clearLogoutTimer();
+        this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
       })
     ),
@@ -189,7 +202,8 @@ export class AuthEffects {
     constructor(
         private actions$: Actions, 
         private http: HttpClient,
-        private router: Router) {
+        private router: Router,
+        private authService: AuthService) {
 
     }
 }
