@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConfig, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -35,7 +36,8 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appRedurer),
     EffectsModule.forRoot([AuthEffects]),
-    StoreDevtoolsModule.instrument({logOnly: environment.production})
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    StoreRouterConnectingModule.forRoot()
   ],
   // providers: [LoggingService],
   bootstrap: [AppComponent]
