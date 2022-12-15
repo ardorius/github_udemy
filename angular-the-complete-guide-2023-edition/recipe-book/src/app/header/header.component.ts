@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { map, Subscription } from 'rxjs';
 import { Store } from "@ngrx/store";
 
-import { AuthService } from '../auth/auth.service';
-import { DataStorageService } from '../shared/data-storage.service';
+// import { AuthService } from '../auth/auth.service';
+// import { DataStorageService } from '../shared/data-storage.service';
 
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   
   constructor(
-    private dataStorageService: DataStorageService, 
+    // private dataStorageService: DataStorageService, 
     private store: Store<fromApp.AppState>
     ) { }
 
@@ -50,7 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSaveData(){
-    this.dataStorageService.storeRecipes();
+    // this.dataStorageService.storeRecipes();
+    this.store.dispatch(new RecipeActions.StoreRecipes());
   }
   onFetchData(){
     // this.dataStorageService.fetchRecipes().subscribe();//need to be added subscribe because we remove it from service

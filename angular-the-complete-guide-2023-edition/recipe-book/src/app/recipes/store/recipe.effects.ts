@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { map, switchMap, withLatestFrom } from 'rxjs';
 import { Recipe } from '../recipe.model';
-import * as RecipesActions from './recipe.action';
+import * as RecipeActions from './recipe.action';
+import * as fromApp from '../store/recipe.reducer';
 
 @Injectable()
 
 export class RecipeEffects {
 
     fetchRecipes = createEffect(
-        () =>  this.actions$.pipe(ofType(RecipesActions.FETCH_RECIPES),
+        () =>  this.actions$.pipe(ofType(RecipeActions.FETCH_RECIPES),
         switchMap(() => {
             return this.http.get<Recipe[]>(
                 'https://ng-course-recipe-book-92fb1-default-rtdb.europe-west1.firebasedatabase.app/recipes.json', //or '?auth=' + user.token
@@ -26,10 +28,30 @@ export class RecipeEffects {
             }),
         
         map(recipes => {
-            return new RecipesActions.SetRecipes(recipes);
+            return new RecipeActions.SetRecipes(recipes);
         })
         )
     )
 
-    constructor(private actions$: Actions, private http: HttpClient){}
+    storeRecipes = createEffect(
+        () => this.actions$.pipe(
+            ofType(RecipeActions.STORE_RECIPES),
+            withLatestFrom(this.store.select('recipes')),
+            switchMap(([actionData, recipesState]) => {
+                return this.http
+                .put(
+                    'https://ng-course-recipe-book-92fb1-default-rtdb.europe-west1.firebasedatabase.app/recipes.json',
+                    recipesState//recipe?
+                    );
+            }),
+            map(recipes => {
+                return new RecipeActions.StoreRecipes();
+            })
+            ), {dispatch: false}
+    )
+
+    constructor(
+        private actions$: Actions, 
+        private http: HttpClient, 
+        private store: Store<fromApp.State>) { }
 }
