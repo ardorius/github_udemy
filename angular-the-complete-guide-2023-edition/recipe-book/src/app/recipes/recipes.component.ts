@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { Ingredient } from '../shared/ingridient-model';
 // import { Recipe } from './recipe.model';
-import { RecipeService } from './recipe.service';
+// import { RecipeService } from './recipe.service';
 
 @Component({
   selector: 'app-recipes',
