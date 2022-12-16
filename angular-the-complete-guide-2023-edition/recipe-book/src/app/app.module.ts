@@ -30,7 +30,7 @@ import { RecipeEffects } from './recipes/store/recipe.effects';
     ErrorPageComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     SharedModule,
     CoreModule,
