@@ -10,4 +10,10 @@ function printResult2(num) {
 }
 printResult(add(5, 12));
 printResult2(add(7, 12));
+// let combineValues: Function;
+var combineValues;
+combineValues = add;
+// combineValues = printResult;
+// combineValues = 5;
+console.log(combineValues(8, 8));
 // let someValue:undefined;

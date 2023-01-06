@@ -15,4 +15,13 @@ function printResult2(num: number): undefined{
 printResult(add(5, 12));
 printResult2(add(7, 12));
 
+// let combineValues: Function;
+let combineValues: (a: number, b:number) => number;//function type
+
+combineValues = add;
+// combineValues = printResult;
+// combineValues = 5;
+
+console.log(combineValues(8,8));
+
 // let someValue:undefined;
