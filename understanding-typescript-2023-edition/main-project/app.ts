@@ -9,6 +9,7 @@ if(typeof userInput === 'string'){
 
 function generateError(message: string, code: number): never{//never send return value, even undefined
     throw {message: message, errorCode: code};
+    // while(true){}
 }
 
 const result = generateError('An error occurred!', 500);
