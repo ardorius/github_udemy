@@ -1,6 +1,8 @@
 //179. Working with Props and Types for Props
 
 import React from "react";
+// 185. Adding Styling
+import './TodoList.css';
 
 interface TodoListProps {
   items: { id: string; text: string }[];

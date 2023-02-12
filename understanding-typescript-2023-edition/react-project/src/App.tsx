@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   const todoDeleteHandler = (todoId: string) => {
     setTodos((prevTodos) => {
-      return prevTodos.filter((todo) => todo.id === todoId);
+      return prevTodos.filter((todo) => todo.id !== todoId);
     });
   };
 
