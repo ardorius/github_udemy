@@ -1,5 +1,7 @@
 //178. How Do React + TypeScript Work Together?
 import React, { useState } from "react";
+//186. Types for other React Features (e.g. Redux or Routing)
+// import { Route} from "react-router-dom";
 
 import TodoList from "./components/TodoList";
 import NewTodo from "./components/NewTodo";
