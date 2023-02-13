@@ -1,5 +1,15 @@
-let age: number;
+// 192. Finished Setup & Working with Types (in Node + Express Apps)
 
-age = 34;
+import express, { Request, Response, NextFunction } from "express";
 
-console.log(age);
+import todoRoutes from "./routes/todos";
+
+const app = express();
+
+app.use("/todos", todoRoutes);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  res.status(500).json({ message: err.message });
+});
+
+app.listen(3000);
