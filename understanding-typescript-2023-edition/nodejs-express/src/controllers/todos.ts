@@ -40,18 +40,44 @@ export const updateTodo: RequestHandler<{id: string}> = (req, res, next) => {
     res.json({message: 'Updated!', updateTodo: TODOS[todoIndex]}); 
 };
 
-export const deleteTodo: RequestHandler = (req, res, next) => {
-    const todoId = req.params.id;
+//detele Todo by url params id
 
-    const updatedText = (req.body as {text: string}).text;
+//write description of deteleTodo method
+/**
+ * 
+ * @param req
+ * @param res 
+ * @param next 
+ */
+export const deleteTodo: RequestHandler<{id: string}> = (req, res, next) => {
+    const todoId = req.params.id;
 
     const todoIndex = TODOS.findIndex(todo => todo.id === todoId);
 
     if (todoIndex < 0) {
         throw new Error("Cound not find todo!");
     }
-    
+
     TODOS.splice(todoIndex, 1);
 
-    res.json({message: 'Todo Deleted!'}); 
-};
+    res.json({message: 'Todo deleted!'});
+}
+
+//check if element exist it Todo by url params id
+export const getTodoById: RequestHandler<{id: string}> = (req, res, next) => {
+    const todoId = req.params.id;
+
+    const todoIndex = TODOS.findIndex(todo => todo.id === todoId);
+
+    if (todoIndex < 0) {
+        throw new Error("Cound not find todo!");
+    }
+
+    res.json({message: 'Found todoxx!', todo: TODOS[todoIndex]});
+}
+
+//count element in Todo list
+export const countTodo: RequestHandler = (req, res, next) => {
+
+    res.json({message: 'Count todo!', count: TODOS.length});
+}
