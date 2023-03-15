@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --proxy-config ./proxy.json",
+    "start": "ng serve -o --port 4401",
     "server": "ts-node -P ./server/server.tsconfig.json ./server/server.ts",
     "build": "ng build",
     "test": "ng test",
@@ -50,8 +50,12 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "lite-server": "^2.6.1",
     "protractor": "~7.0.0",
     "ts-node": "~3.2.0",
     "typescript": "4.8.4"
-  }
+  },
+  "description": "This repository contains the code of the [Angular Material In Depth](https://angular-university.io/course/angular-material-course) video course.",
+  "main": "karma.conf.js",
+  "author": ""
 }
