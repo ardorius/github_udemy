@@ -1,6 +1,21 @@
 <div [formGroup]="form" class="course-details-form">
-
-
+  <!-- 11. Angular Material Input Field: Lots Of Useful Options -->
+  <mat-form-field>
+    <input matInput placeholder="Course title" formControlName="title" #title>
+    <span matPrefix>Course title</span>
+    <!-- <span matSuffix>Max 50 characters</span> -->
+    <mat-icon matSuffix>mode_edit</mat-icon>
+    <mat-hint align="end">{{title.value.length}} / 60</mat-hint>
+    <mat-error *ngIf="form.get('title').hasError('required')">
+      Course title is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="courseTitle.errors?.maxlength">
+      Course title cannot be more than <strong>60</strong> characters long
+    </mat-error>
+    <mat-error *ngIf="courseTitle.errors?.minlength">
+      Course title must be at least <strong>5</strong> characters long
+    </mat-error>
+  </mat-form-field>
 </div>
 
 
