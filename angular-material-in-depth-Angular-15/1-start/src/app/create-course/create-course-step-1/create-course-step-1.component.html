@@ -16,6 +16,11 @@
       Course title must be at least <strong>5</strong> characters long
     </mat-error>
   </mat-form-field>
+  <!-- 12. Angular Material Radio Button -->
+  <mat-radio-group formControlName="couse-type" formControlName="courseType">
+    <mat-radio-button [disabled]="true" value="free">Free</mat-radio-button>
+    <mat-radio-button value="premium">Premium</mat-radio-button>
+  </mat-radio-group>
 </div>
 
 
