@@ -5,7 +5,7 @@
         <mat-icon matListIcon>library_books</mat-icon>
         <span matLine>Courses</span>
       </a>
-      <a mat-list-item routerLink="about">
+      <a mat-list-item routerLink="/about">
         <mat-icon matListIcon>question_answer</mat-icon>
         <span matLine>About</span>
       </a>
@@ -23,7 +23,28 @@
     <button mat-icon-button (click)="sidenav.open()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Angular Material In Depth</span>
+    <!-- 7. Angular Material Dropdown Menus -->
+    <a mat-button [matMenuTriggerFor]="dropdown">
+      Screens
+    </a>
+    <mat-menu #dropdown>
+      <button mat-menu-item routerLink="/">
+        <mat-icon>library_books</mat-icon>
+        Courses
+      </button>
+      <button mat-menu-item routerLink="/about">
+        <mat-icon>question_answer</mat-icon>
+        About
+      </button>
+    </mat-menu>
+    <a mat-button>
+      <mat-icon>person_add</mat-icon>
+      Register
+    </a>
+    <a mat-button>
+      <mat-icon>account_circle</mat-icon>
+      Login
+    </a>
   </mat-toolbar>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </mat-sidenav-container>
