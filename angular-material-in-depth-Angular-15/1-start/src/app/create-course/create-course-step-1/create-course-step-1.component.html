@@ -42,11 +42,11 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <!-- Stop 14. Angular Material Date Picker -->
+  <!-- 14. Angular Material Date Picker -->
   <mat-form-field appearance="outline">
     <mat-label>Course publish date</mat-label>
     <input matInput [matDatepicker]="releasedAtPicker" formControlName="releasedAt">
     <mat-datepicker-toggle matSuffix [for]="releasedAtPicker"></mat-datepicker-toggle>
-    <mat-datepicker #releasedAtPicker></mat-datepicker>
+    <mat-datepicker #releasedAtPicker [dateClass]="dateClass"></mat-datepicker>
   </mat-form-field>
 </div>
