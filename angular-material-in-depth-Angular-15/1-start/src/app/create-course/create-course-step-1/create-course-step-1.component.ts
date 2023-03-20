@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {UntypedFormBuilder, Validators} from '@angular/forms';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 
+const SAMPLE_TEXT =  "LOREM IPSUM .ASDASD ASDIJODSFHOADJHG JOAFHGJO HFDOJGHOJDSFHGJSFDBNGJIBFSDJIOGBJFDSPG IKJFOSDPMG KMPOCAKSOPMC  KFOPDKS";
 
 @Component({
   selector: "create-course-step-1",
@@ -20,7 +21,7 @@ export class CreateCourseStep1Component {
     category: ['BEGINNER', Validators.required],
     courseType: ['premium', Validators.required],
     downloadsAllowed: [false, Validators.requiredTrue],
-    longDescription: ['', [Validators.required, Validators.minLength(3)]]
+    longDescription: [SAMPLE_TEXT, [Validators.required, Validators.minLength(3), Validators.maxLength(300)]]
   });
 //15. Angular Material Date Picker - Highlighting a Calendar Date
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {

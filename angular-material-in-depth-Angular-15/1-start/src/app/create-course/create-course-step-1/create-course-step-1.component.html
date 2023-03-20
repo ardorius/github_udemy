@@ -52,4 +52,11 @@
   <!-- 16. Angular Material Check Box -->
   <mat-checkbox color="primary" formControlName="downloadsAllowed"
   [indeterminate]="true">Downloads Allowed?</mat-checkbox>
+  <!-- 17. Angular Material Text Area -->
+  <mat-form-field appearance="outline">
+    <textarea
+    cdkTextareaAutosize [cdkAutosizeMinRows]="2" [cdkAutosizeMaxRows]="5"
+    placeholder="Course description" #textarea formControlName="longDescription" matInput></textarea>
+    <mat-hint align="end">{{textarea.value.length}} / 300</mat-hint>
+  </mat-form-field>
 </div>
