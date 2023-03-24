@@ -48,6 +48,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ["seqNo", "description", "duration"];
 
+  expandedElement: Lesson = null;
+
   ngOnInit() {
     this.course = this.route.snapshot.data["course"];
 
@@ -74,6 +76,14 @@ export class CourseComponent implements OnInit, AfterViewInit {
         finalize(() => this.loading = false)
       )
       .subscribe((lessons) => (this.lessons = lessons));
+  }
+
+  onRowClicked(lesson) {
+    if(this.expandedElement == lesson) {
+      this.expandedElement = null;
+    } else {
+      this.expandedElement = lesson;
+    }
   }
 
   // 24. Angular Material Data Table - Sorting Data

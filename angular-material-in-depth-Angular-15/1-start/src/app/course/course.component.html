@@ -14,7 +14,7 @@
 
   <table mat-table class="lessons-table mat-elevation-z8"
     matSort matSortDisableClear matSortActive="seqNo" matSortDirection="asc"
-    [dataSource]="lessons">
+    [dataSource]="lessons" multiTemplateDataRows>
 
     <ng-container matColumnDef="seqNo">
 
@@ -40,9 +40,28 @@
 
     </ng-container>
 
+    <ng-container matColumnDef="expandedDetail">
+
+        <td mat-cell *matCellDef="let lesson" [attr.colspan]="displayedColumns.length">
+
+          <div class="lesson-detail">
+
+            <p>{{lesson.longDescription}}</p>
+
+          </div>
+
+        </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-    <tr mat-row *matRowDef="let lesson; columns: displayedColumns;"></tr>
+    <tr mat-row
+    (click)="onRowClicked(lesson)"
+    *matRowDef="let lesson; columns: displayedColumns;"></tr>
+    <!-- 25. Angular Material Data Table - Multi-Template Data Rows and Expandable Rows -->
+
+    <tr mat-row *matRowDef="let lesson; columns: ['expandedDetail']"
+    [class.collapsed-detail]="lesson != expandedElement"></tr>
 
   </table>
   <!-- 23. Angular Material Data Table Paginator -->
