@@ -74,7 +74,7 @@ export class CourseComponent implements OnInit, AfterViewInit {
         this.course.id,
         this.matsort?.direction ?? "asc",
         this.paginator?.pageIndex ?? 0,
-        this.paginator?.pageSize ?? 3,
+        this.paginator?.pageSize ?? 4,
         this.matsort?.active ?? "seqNo")
       .pipe(
         tap(lessons => this.lessons = lessons),

@@ -75,16 +75,18 @@
 
         </td>
     </ng-container>
+    <!-- sticky: true -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;">
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    </tr>
 
     <tr mat-row
-    (click)="onRowClicked(lesson)"
-    *matRowDef="let lesson; columns: displayedColumns;"></tr>
+      (click)="onRowClicked(lesson)"
+      *matRowDef="let lesson; columns: displayedColumns;"></tr>
     <!-- 25. Angular Material Data Table - Multi-Template Data Rows and Expandable Rows -->
 
     <tr mat-row *matRowDef="let lesson; columns: ['expandedDetail']"
-    [class.collapsed-detail]="lesson != expandedElement"></tr>
+      [class.collapsed-detail]="lesson != expandedElement"></tr>
 
   </table>
   <!-- 23. Angular Material Data Table Paginator -->
