@@ -6,12 +6,13 @@
   <!-- 22. Angular Material Loading Indicator -->
   <div class="spinner-container" *ngIf="loading">
     <mat-spinner></mat-spinner>
+
   </div>
 
-</div>
+
 <!-- 19. Angular Material Data Table - Complete Example With Simplified DataSource -->
 
-<table mat-table class="lessons-table mat-elevation-z8" [dataSource]="lessons">
+  <table mat-table class="lessons-table mat-elevation-z8" [dataSource]="lessons">
 
     <ng-container matColumnDef="seqNo">
 
@@ -41,8 +42,14 @@
 
     <tr mat-row *matRowDef="let lesson; columns: displayedColumns;"></tr>
 
-</table>
+  </table>
+  <!-- 23. Angular Material Data Table Paginator -->
+  <mat-paginator
+      class="mat-elevation-z8"
+      [length]="course?.lessonsCount"
+      [pageSize]="3"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
 
 
-
-
+  </div>
