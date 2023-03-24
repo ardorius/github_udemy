@@ -18,6 +18,7 @@ import {
   tap,
   delay,
   catchError,
+  finalize,
 } from "rxjs/operators";
 import { merge, fromEvent, throwError } from "rxjs";
 import { Lesson } from "../model/lesson";
@@ -31,6 +32,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
   course: Course;
 
   lessons: Lesson[] = [];
+
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +49,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
   }
   // 21. Angular Material Data Table - Loading Data From the Backend
   loadLessonsPage() {
+    this.loading = true;
+
     this.coursesService
       .findLessons(this.course.id, "asc", 0, 3)
       .pipe(
@@ -54,7 +59,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
           console.log('Error loading lessons', err);
           alert('Error loading lessons');
           return throwError(err);
-        })
+        }),
+        finalize(() => this.loading = false)
       )
       .subscribe((lessons) => (this.lessons = lessons));
   }
