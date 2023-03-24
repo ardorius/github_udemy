@@ -38,6 +38,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
+  @ViewChild(MatSort)
+  matsort: MatSort;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,9 +60,10 @@ export class CourseComponent implements OnInit, AfterViewInit {
     this.coursesService
       .findLessons(
         this.course.id,
-        "asc",
+        this.matsort?.direction ?? "asc",
         this.paginator?.pageIndex ?? 0,
-        this.paginator?.pageSize ?? 3)
+        this.paginator?.pageSize ?? 3,
+        this.matsort?.active ?? "seqNo")
       .pipe(
         tap(lessons => this.lessons = lessons),
         catchError(err => {
@@ -73,8 +76,12 @@ export class CourseComponent implements OnInit, AfterViewInit {
       .subscribe((lessons) => (this.lessons = lessons));
   }
 
+  // 24. Angular Material Data Table - Sorting Data
   ngAfterViewInit() {
-    this.paginator.page
+
+    this.matsort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    merge(this.matsort.sortChange, this.paginator.page)
       .pipe(
         tap(() => this.loadLessonsPage())
       )
