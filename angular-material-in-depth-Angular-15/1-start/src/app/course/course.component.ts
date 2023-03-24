@@ -22,6 +22,7 @@ import {
 } from "rxjs/operators";
 import { merge, fromEvent, throwError } from "rxjs";
 import { Lesson } from "../model/lesson";
+import { SelectionModel } from "@angular/cdk/collections";
 
 @Component({
   selector: "course",
@@ -41,12 +42,16 @@ export class CourseComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort)
   matsort: MatSort;
 
+  // 26. Angular Material Data Table Data Selection
+
+  selection = new SelectionModel<Lesson>(true, []);
+
   constructor(
     private route: ActivatedRoute,
     private coursesService: CoursesService
   ) {}
 
-  displayedColumns = ["seqNo", "description", "duration"];
+  displayedColumns = ["select","seqNo", "description", "duration"];
 
   expandedElement: Lesson = null;
 
@@ -55,6 +60,11 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     this.loadLessonsPage();
   }
+
+  onLessonToggled(lesson: Lesson) {
+    this.selection.toggle(lesson);
+  }
+
   // 21. Angular Material Data Table - Loading Data From the Backend
   loadLessonsPage() {
     this.loading = true;
@@ -96,5 +106,17 @@ export class CourseComponent implements OnInit, AfterViewInit {
         tap(() => this.loadLessonsPage())
       )
       .subscribe();
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.lessons.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.lessons.forEach(row => this.selection.select(row));
   }
 }
