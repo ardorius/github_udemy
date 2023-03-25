@@ -19,21 +19,44 @@ export class CourseDialogComponent implements OnInit {
   description: string;
 
   form = this.fb.group({
-    description: ["", Validators.required],
-    category: ["BEGINNER", Validators.required],
+    description: [this.course.description, Validators.required],
+    category: [this.course.category, Validators.required],
     releasedAt: [new Date(), Validators.required],
-    longDescription: ["", Validators.required]
+    longDescription: [this.course.longDescription, Validators.required],
   });
+  // 29. Angular Material Dialog - Final Implementation and Demo
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) private course: Course,
+    private dialogRef: MatDialogRef<CourseDialogComponent>
+  ) {
+    this.description = course.description;
+  }
 
   ngOnInit() {}
 
   save() {
+    const changes = this.form.value;
 
+    this.dialogRef.close(changes);
   }
 
   close() {
-
+    this.dialogRef.close();
   }
+}
+
+// 29. Angular Material Dialog - Final Implementation and Demo
+export function editCourseDialog(dialog: MatDialog, course: Course) {
+  const config = new MatDialogConfig();
+  config.disableClose = true;
+  config.autoFocus = true;
+  config.width = "400px";
+  config.data = {
+    ...course,
+  };
+  const dialogRef = dialog.open(CourseDialogComponent, config);
+
+  return dialogRef.afterClosed();
 }
