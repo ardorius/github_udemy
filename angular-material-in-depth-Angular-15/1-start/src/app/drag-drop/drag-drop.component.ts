@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {Lesson} from '../model/lesson';
+import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Lesson } from '../model/lesson';
 
 
 @Component({
@@ -89,6 +89,25 @@ export class DragDropComponent {
       courseId: 11
     }
   ];
+  // 32. Angular Material Drag and Drop Between Different Lists
+  done = [];
+
+  dropMultipleLists(event: CdkDragDrop<Lesson[]>) {
+    console.log("previousIndex = " + event.previousIndex);
+    console.log("currentIndex = " + event.currentIndex);
+
+    if (event.previousContainer == event.container) {
+      moveItemInArray(this.lessons, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+        );
+    }
+  }
+
 
   drop(event: CdkDragDrop<Lesson[]>) {
 
