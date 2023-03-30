@@ -1,5 +1,7 @@
 <!-- 34. The Angular Material mat-grid-list Componen -->
-<mat-grid-list [cols]="cols" [rowHeight]="rowHeight">
+<mat-grid-list [cols]="cols" [rowHeight]="rowHeight"
+[ngClass]="{'handset-portrait':handsetPortrait}">
+<!-- 36. Writing Responsive CSS for Angular Material Components -->
 
   <mat-grid-tile *ngFor="let course of courses" >
 
