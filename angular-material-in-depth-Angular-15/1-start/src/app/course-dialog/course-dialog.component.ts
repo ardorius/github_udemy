@@ -51,6 +51,10 @@ export class CourseDialogComponent implements OnInit {
 export function editCourseDialog(dialog: MatDialog, course: Course) {
   const config = new MatDialogConfig();
   config.disableClose = true;
+  // 37. Angular Material Responsive Dialogs
+  config.panelClass = "modal-panel";
+  config.backdropClass = "backdrop-modal-panel";
+
   config.autoFocus = true;
   config.width = "400px";
   config.data = {
