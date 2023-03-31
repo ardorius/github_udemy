@@ -7,6 +7,8 @@ interface CourseNode {
   children?: CourseNode[];
 }
 
+
+
 const TREE_DATA: CourseNode[] = [
   {
     name: 'Angular For Beginners',
@@ -57,13 +59,19 @@ const TREE_DATA: CourseNode[] = [
   styleUrls: ['tree-demo.component.scss']
 })
 export class TreeDemoComponent implements OnInit {
-
+  // 39. Angular Material Nested Tree - Step-by-Step Example
+  nestedDataSource = new MatTreeNestedDataSource<CourseNode>();
+  nestedTreeControl = new NestedTreeControl<CourseNode>(node => node.children);
 
   ngOnInit() {
-
+    this.nestedDataSource.data = TREE_DATA;
+    // this.nestedtreeControl.expandAll();
 
   }
 
+  hasNestedChild (_: number, node: CourseNode) {
+    return node?.children?.length > 0;
+  }
 }
 
 
