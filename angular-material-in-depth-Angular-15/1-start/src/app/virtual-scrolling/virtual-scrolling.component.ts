@@ -7,8 +7,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ["virtual-scrolling.component.scss"]
 })
 export class VirtualScrollingComponent implements OnInit {
+  // 41. Angular Material Virtual Scrolling
+  items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
 
-  items = Array.from({length: 100}).map((value, i) => `Item #${i}`);
 
   ngOnInit() {
 
