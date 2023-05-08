@@ -24,6 +24,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.reloadCoures();
+  }
+
+  reloadCoures(){
 
     const courses$ = this.coursesService.loadAllCourses()
     .pipe(
@@ -40,6 +44,8 @@ export class HomeComponent implements OnInit {
     );
 
   }
+
+
 
 
 
