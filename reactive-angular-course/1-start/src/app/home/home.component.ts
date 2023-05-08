@@ -33,25 +33,14 @@ export class HomeComponent implements OnInit {
       map(courses => courses.sort(sortCoursesBySeqNo))
     );
 
+    // courses$.subscribe(val => console.log(val));
+
     this.beginnerCourses$ = courses$.pipe(
       map(courses => courses.filter(courses => courses.category == "BEGINNER"))
     )
     this.advancedCourses$ = courses$.pipe(
       map(courses => courses.filter(courses => courses.category == "ADVANCED"))
     );
-
-
-    // this.http.get('/api/courses')
-    //   .subscribe(
-    //     res => {
-
-    //       const courses: Course[] = res["payload"].sort(sortCoursesBySeqNo);
-
-    //       this.beginnerCourses = courses.filter(course => course.category == "BEGINNER");
-
-    //       this.advancedCourses = courses.filter(course => course.category == "ADVANCED");
-
-    //     });
 
   }
 
