@@ -19,7 +19,9 @@ export class HomeComponent implements OnInit {
   advancedCourses: Course[];
 
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {
+  constructor(
+    private http: HttpClient,
+    private dialog: MatDialog) {
 
   }
 
