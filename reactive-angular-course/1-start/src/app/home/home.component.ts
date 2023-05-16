@@ -4,6 +4,7 @@ import {interval, noop, Observable, of, throwError, timer} from 'rxjs';
 import {catchError, delay, delayWhen, filter, finalize, map, retryWhen, shareReplay, tap} from 'rxjs/operators';
 import { CoursesService } from '../services/courses.services';
 import { LoadingService } from '../loading/loading.service';
+import { MessagesService } from '../messages/messages.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private messagesService: MessagesService
   ) {
 
   }
@@ -35,7 +37,14 @@ export class HomeComponent implements OnInit {
 
     const courses$ = this.coursesService.loadAllCourses()
     .pipe(
-      map(courses => courses.sort(sortCoursesBySeqNo)) //,
+      map(courses => courses.sort(sortCoursesBySeqNo)), //,
+      // 17. Error Handling and the Messages Component
+      catchError(err => {
+        const message = "Could not load courses";
+        this.messagesService.showErrors(message);
+        console.log(message, err);
+        return throwError(err);
+      })
       // finalize(() => this.loadingService.loadingOff())
     );
     // 15. Loading Indication Service - Reactive Implementation Finished
