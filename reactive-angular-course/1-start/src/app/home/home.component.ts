@@ -31,20 +31,22 @@ export class HomeComponent implements OnInit {
 
   reloadCoures(){
  // 14. Reactive Component Interaction using Custom Observables and Behavior Subject
-    this.loadingService.loadingOn();
+    // this.loadingService.loadingOn();
 
     const courses$ = this.coursesService.loadAllCourses()
     .pipe(
-      map(courses => courses.sort(sortCoursesBySeqNo)),
-      finalize(() => this.loadingService.loadingOff())
+      map(courses => courses.sort(sortCoursesBySeqNo)) //,
+      // finalize(() => this.loadingService.loadingOff())
     );
+    // 15. Loading Indication Service - Reactive Implementation Finished
+    const loadCourses$ = this.loadingService.showLoaderUnitCompleted(courses$);
 
     // courses$.subscribe(val => console.log(val));
 
-    this.beginnerCourses$ = courses$.pipe(
+    this.beginnerCourses$ = loadCourses$.pipe(
       map(courses => courses.filter(courses => courses.category == "BEGINNER"))
     )
-    this.advancedCourses$ = courses$.pipe(
+    this.advancedCourses$ = loadCourses$.pipe(
       map(courses => courses.filter(courses => courses.category == "ADVANCED"))
     );
 
