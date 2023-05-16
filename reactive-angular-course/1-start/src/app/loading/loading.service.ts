@@ -9,6 +9,11 @@ export class LoadingService{
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   loading$: Observable<boolean> = this.loadingSubject.asObservable();
+
+  constructor(){
+    console.log("Loading service created ...");
+  }
+
   // 13. Loading Service Reactive API Design
   showLoaderUnitCompleted<T>(obs$: Observable<T>): Observable<T> {
     // return undefined;
