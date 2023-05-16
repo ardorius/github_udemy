@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     const courses$ = this.coursesService.loadAllCourses()
     .pipe(
       map(courses => courses.sort(sortCoursesBySeqNo)), //,
-      // 17. Error Handling and the Messages Component
+     // 18. Error Handling with the catchError RxJs operator
       catchError(err => {
         const message = "Could not load courses";
         this.messagesService.showErrors(message);
