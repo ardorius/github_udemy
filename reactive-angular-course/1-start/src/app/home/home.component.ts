@@ -3,6 +3,7 @@ import {Course, sortCoursesBySeqNo} from '../model/course';
 import {interval, noop, Observable, of, throwError, timer} from 'rxjs';
 import {catchError, delay, delayWhen, filter, finalize, map, retryWhen, shareReplay, tap} from 'rxjs/operators';
 import { CoursesService } from '../services/courses.services';
+import { LoadingService } from '../loading/loading.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private loadingService: LoadingService
   ) {
 
   }
