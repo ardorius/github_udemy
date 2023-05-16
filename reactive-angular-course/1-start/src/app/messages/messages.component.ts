@@ -9,7 +9,8 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
-
+  // 17. Error Handling and the Messages Component
+  showMessages = false;
 
   constructor() {
 
@@ -22,8 +23,7 @@ export class MessagesComponent implements OnInit {
 
 
   onClose() {
-
-
+    this.showMessages = false;
   }
 
 }
