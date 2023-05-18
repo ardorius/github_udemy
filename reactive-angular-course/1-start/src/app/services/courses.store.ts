@@ -42,6 +42,10 @@ export class CoursesStore {
     this.loading.showLoaderUnitCompleted(loadCourses$)
       .subscribe();
   }
+  // 24. Store Optimistic Data Modification Operations - API Design
+  saveCourse(courseId: string, changes: Partial<Course>): Observable<any>{
+    return
+  }
 
   filterByCategory(category: string): Observable<Course[]> {
     return this.courses$.pipe(

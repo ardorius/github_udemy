@@ -16,6 +16,7 @@ import { throwError } from "rxjs";
 import { CoursesService } from "../services/courses.services";
 import { LoadingService } from "../loading/loading.service";
 import { MessagesService } from "../messages/messages.service";
+import { CoursesStore } from "../services/courses.store";
 
 @Component({
   selector: "course-dialog",
@@ -32,8 +33,10 @@ export class CourseDialogComponent implements AfterViewInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CourseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) course: Course,
-    private coursesService: CoursesService,
-    private loadingService: LoadingService,
+    // 24. Store Optimistic Data Modification Operations - API Design
+    private coursesStore: CoursesStore,
+    // private coursesService: CoursesService,
+    // private loadingService: LoadingService,
     private messagesService: MessagesService
   ) {
     this.course = course;
@@ -54,16 +57,20 @@ export class CourseDialogComponent implements AfterViewInit {
   save() {
     const changes = this.form.value;
 
-    const saveCourse$ = this.coursesService
+    this.coursesStore
       .saveCourse(this.course.id, changes)
-      .pipe(
-        catchError((err) => {
-          const message = "Cound not save course";
-          console.log(message, err);
-          this.messagesService.showErrors(message);
-          return throwError(err);
-        })
-      );
+      // .pipe(
+      //   catchError((err) => {
+      //     const message = "Cound not save course";
+      //     console.log(message, err);
+      //     this.messagesService.showErrors(message);
+      //     return throwError(err);
+      //   })
+      // )
+      .subscribe();
+
+      this.dialogRef.close(changes);
+
 
     // this.coursesService.saveCourse(this.course.id, changes)
     // .subscribe(
@@ -73,11 +80,11 @@ export class CourseDialogComponent implements AfterViewInit {
     // );
 
     // 16. Understanding the Angular Component providers property
-    this.loadingService
-      .showLoaderUnitCompleted(saveCourse$)
-      .subscribe((val) => {
-        this.dialogRef.close(val);
-      });
+  //   this.loadingService
+  //     .showLoaderUnitCompleted(saveCourse$)
+  //     .subscribe((val) => {
+  //       this.dialogRef.close(val);
+  //     });
   }
 
   close() {
