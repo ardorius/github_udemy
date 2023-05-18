@@ -3,7 +3,7 @@
 import { Injectable } from "@angular/core";
 import { Course, sortCoursesBySeqNo } from "../model/course";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, map, tap } from "rxjs/operators";
+import { catchError, map, shareReplay, tap } from "rxjs/operators";
 import { LoadingService } from "../loading/loading.service";
 import { MessagesService } from "../messages/messages.service";
 import { HttpClient } from "@angular/common/http";
@@ -43,15 +43,41 @@ export class CoursesStore {
       .subscribe();
   }
   // 24. Store Optimistic Data Modification Operations - API Design
+
   saveCourse(courseId: string, changes: Partial<Course>): Observable<any>{
-    return
+    // 25. Store Optimistic Data Modifications - Step-By-Step Implementation
+    const courses = this.subject.getValue();
+
+    const index = courses.findIndex(course => course.id == courseId);
+
+    const newCourse: Course = {
+      ...courses[index],
+      ...changes
+    };
+
+    const newCourses: Course[] = courses.slice(0);
+
+    newCourses[index] = newCourse;
+
+    this.subject.next(newCourses);
+    // 25. Store Optimistic Data Modifications - Step-By-Step Implementation
+    return this.http.put(`/api/coures/${courseId}`, changes)
+      .pipe(
+        catchError(err => {
+              const message = "Could not load courses";
+              console.log(message, err);
+              this.messages.showErrors(message);
+              return throwError(err);
+            }),
+        shareReplay()
+      );
   }
 
   filterByCategory(category: string): Observable<Course[]> {
     return this.courses$.pipe(
       map((courses) =>
         courses
-          .filter((course) => course.category == category)
+          .filter(course => course.category == category)
           .sort(sortCoursesBySeqNo)
       )
     );
