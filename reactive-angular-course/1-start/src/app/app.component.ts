@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LoadingService } from "./loading/loading.service";
 import { MessagesService } from "./messages/messages.service";
+import { AuthStore } from "./services/auth.store";
 
 @Component({
   selector: "app-root",
@@ -8,9 +9,12 @@ import { MessagesService } from "./messages/messages.service";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  // 28. Adapting the UI according to the user Authentication status
+  constructor(public auth: AuthStore) {}
 
   ngOnInit() {}
 
-  logout() {}
+  logout() {
+    this.auth.logout();
+  }
 }
