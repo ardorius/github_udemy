@@ -15,6 +15,7 @@ import {
 } from 'rxjs/operators';
 import {merge, fromEvent, Observable, concat, throwError} from 'rxjs';
 import {Lesson} from '../model/lesson';
+import { CoursesService } from '../services/courses.services';
 
 
 @Component({
@@ -23,19 +24,23 @@ import {Lesson} from '../model/lesson';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
+  // 34. Consolidation Exercise - Implementing the Course Screen in Reactive Style
+  course$: Observable<Course>;
 
-  course: Course;
+  lessons$: Observable<Lesson[]>;
 
-  lessons: Lesson[];
-
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private coursesService:CoursesService) {
 
 
   }
 
   ngOnInit() {
 
+    const courseId = parseInt(this.route.snapshot.paramMap.get('courseId'));
 
+    this.course$ = this.coursesService.loadCourseById(courseId);
 
   }
 
