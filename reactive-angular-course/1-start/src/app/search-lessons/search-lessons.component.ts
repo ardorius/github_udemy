@@ -1,6 +1,12 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Course} from '../model/course';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Course } from "../model/course";
 import {
   debounceTime,
   distinctUntilChanged,
@@ -11,45 +17,37 @@ import {
   concatMap,
   switchMap,
   withLatestFrom,
-  concatAll, shareReplay
-} from 'rxjs/operators';
-import {merge, fromEvent, Observable, concat} from 'rxjs';
-import {Lesson} from '../model/lesson';
-import { CoursesService } from '../services/courses.services';
-
+  concatAll,
+  shareReplay,
+} from "rxjs/operators";
+import { merge, fromEvent, Observable, concat } from "rxjs";
+import { Lesson } from "../model/lesson";
+import { CoursesService } from "../services/courses.services";
 
 @Component({
-  selector: 'course',
-  templateUrl: './search-lessons.component.html',
-  styleUrls: ['./search-lessons.component.css']
+  selector: "course",
+  templateUrl: "./search-lessons.component.html",
+  styleUrls: ["./search-lessons.component.css"],
 })
 export class SearchLessonsComponent implements OnInit {
-
   // 31. Angular Master Detail Implementation - The Master Table
   searchResults$: Observable<Lesson[]>;
-  constructor(private coursesService: CoursesService) {
 
+  activeLesson: Lesson;
 
+  constructor(private coursesService: CoursesService) {}
+
+  ngOnInit() {}
+
+  onSearch(search: string) {
+    this.searchResults$ = this.coursesService.searchLessons(search);
+  }
+  // 32. Angular Master Detail Implementation - The Detail Element
+  openLesson(lesson: Lesson){
+    this.activeLesson = lesson;
   }
 
-  ngOnInit() {
-
-
+  onBackToSearch(){
+    this.activeLesson = null;
   }
-
-  onSearch(search: string){
-   this.searchResults$ = this.coursesService.searchLessons(search);
-  }
-
 }
-
-
-
-
-
-
-
-
-
-
-
