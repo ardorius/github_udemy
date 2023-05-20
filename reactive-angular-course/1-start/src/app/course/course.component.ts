@@ -42,6 +42,8 @@ export class CourseComponent implements OnInit {
 
     this.course$ = this.coursesService.loadCourseById(courseId);
 
+    this.lessons$ = this.coursesService.loadAllCourseLessons(courseId);
+
   }
 
 
