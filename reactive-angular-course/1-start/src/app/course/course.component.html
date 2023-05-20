@@ -3,10 +3,10 @@
     <div class="course">
 
       <h2>{{data.course?.description}}</h2>
+      <!-- 37. Single Data Observable Pattern - Default Data Values -->
+      <img class="course-thumbnail" [src]="data.course?.iconUrl" *ngIf="data.course">
 
-      <img class="course-thumbnail" [src]="data.course?.iconUrl">
-
-      <table class="lessons-table mat-elevation-z7">
+      <table class="lessons-table mat-elevation-z7" *ngIf="data.lessons.length">
 
         <thead>
           <th>#</th>
