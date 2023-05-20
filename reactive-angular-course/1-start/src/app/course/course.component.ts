@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnInit,
@@ -42,6 +43,8 @@ interface CourseData {
   selector: "course",
   templateUrl: "./course.component.html",
   styleUrls: ["./course.component.css"],
+  // 38. Refactoring an Angular Reactive Application to OnPush Change Detection
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseComponent implements OnInit {
   // 34. Consolidation Exercise - Implementing the Course Screen in Reactive Style
