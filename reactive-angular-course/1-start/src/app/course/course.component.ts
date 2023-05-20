@@ -13,10 +13,15 @@ import {
   withLatestFrom,
   concatAll, shareReplay, catchError
 } from 'rxjs/operators';
-import {merge, fromEvent, Observable, concat, throwError} from 'rxjs';
+import {merge, fromEvent, Observable, concat, throwError, combineLatest} from 'rxjs';
 import {Lesson} from '../model/lesson';
 import { CoursesService } from '../services/courses.services';
 
+// 36. Reactive Angular - The Single Data Observable Pattern
+interface CourseData {
+  course: Course;
+  lessons: Lesson[];
+}
 
 @Component({
   selector: 'course',
@@ -25,9 +30,9 @@ import { CoursesService } from '../services/courses.services';
 })
 export class CourseComponent implements OnInit {
   // 34. Consolidation Exercise - Implementing the Course Screen in Reactive Style
-  course$: Observable<Course>;
 
-  lessons$: Observable<Lesson[]>;
+  data$: Observable<CourseData>;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -39,11 +44,22 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
 
     const courseId = parseInt(this.route.snapshot.paramMap.get('courseId'));
+    // 36. Reactive Angular - The Single Data Observable Pattern
+    const course$ = this.coursesService.loadCourseById(courseId);
+    // 35. Course Component Finished - Introduction to the Single Data Observable Pattern
+    const lessons$ = this.coursesService.loadAllCourseLessons(courseId);
 
-    this.course$ = this.coursesService.loadCourseById(courseId);
-
-    this.lessons$ = this.coursesService.loadAllCourseLessons(courseId);
-
+    // 36. Reactive Angular - The Single Data Observable Pattern
+    this.data$ = combineLatest([course$, lessons$])
+      .pipe(
+        map(([course, lessons]) => {
+          return {
+            course,
+            lessons
+          }
+        }),
+        tap(console.log)
+      )
   }
 
 
